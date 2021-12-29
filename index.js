@@ -16,10 +16,30 @@ console.log(color(' ==============================================='))
 console.log(color('│ ○ Instagram : https://instagram.com/duta_fbriann                 '))
 console.log(color('│ ○ Github : https://github.com/DutaKey                        '))
 console.log(color(' ==============================================='))
-Duta.on('qr', () => {})
+Duta.on('qr', () => {
+console.log(color('[','white'), color('!','red'), color(']','white'), color(' Silahkan Scan Kode Qr Nya...!'))
+})
+
 fs.existsSync('./dbot.json') && Duta.loadAuthInfo('./dbot.json')
 await Duta.connect({timeoutMs: 30*1000})
 fs.writeFileSync('./dbot.json', JSON.stringify(Duta.base64EncodedAuthInfo(), null, '\t'))
+
+Duta.on('connecting', () => {
+console.log(color('|TRM|'), color('Connecting...', 'cyan'))
+})
+	
+Duta.on('open', () => {
+console.log(color('|TRM|'), color('Connected', 'cyan'))
+}) 
+     
+Duta.on('ws-close', () => {
+console.log(color('|TRM|'), color('Connection lost, trying to reconnect.', 'cyan'))
+})
+    
+Duta.on('close', async () => {
+        console.log(color('|TRM|'), color('Disconnected.', 'cyan'))
+        })
+
 teks = `https://chat.whatsapp.com/B8FEo1CtHsZ0k7woYzqjnG`
 Duta.query({ json:["action", "invite", `${teks.replace('https://chat.whatsapp.com/','')}`]})
 console.log(color('|WRN|', 'yellow'), color('Joined to bitch boot group', 'cyan'))
